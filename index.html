@@ -11,6 +11,38 @@
 </head>
 <body>
 
+  <!-- =====================================================================
+       KONFIGURATION  –  hier stellst du alles ein
+       ---------------------------------------------------------------------
+       data-sitze-gesamt  Gesamtzahl der Sitze (Standard: 100)
+       data-sperrklausel  Hürde in Prozent (Standard: 10). Parteien darunter
+                          bekommen 0 Sitze; die Prozente der übrigen Parteien
+                          werden automatisch neu auf 100 % normiert.
+       data-ausschluss    Unvereinbare Parteien. Namen mit Komma trennen.
+                          Mehrere Gruppen mit Strichpunkt (;) trennen.
+                          Beispiel: "Partei A, Partei C; Partei B, Partei D, Partei E"
+                          -> A und C schliessen sich aus. B, D und E
+                             schliessen sich gegenseitig aus.
+                          Die Namen müssen genau den Parteinamen unten entsprechen.
+
+       Pro Partei eine Zeile:
+         data-name     Name der Partei
+         data-prozent  Ergebnis in Prozent (Dezimalstellen mit Punkt: 12.5)
+         data-farbe    (optional) eigene Farbe, z. B. "#ff4d6d"
+         data-sitze    (optional) Sitze von Hand festlegen, überschreibt die Berechnung
+       Weitere Parteien: einfach eine Zeile kopieren.
+       ===================================================================== -->
+  <div id="konfig" hidden
+       data-sitze-gesamt="100"
+       data-sperrklausel="10"
+       data-ausschluss="Naturschutzpartei, Heimatschutzpartei; Pilotenpartei, Heimatschutzpartei">
+    <span data-partei data-name="Naturschutzpartei" data-prozent="18"></span>
+    <span data-partei data-name="Pilotenpartei" data-prozent="29"></span>
+    <span data-partei data-name="Wirtschaftspartei" data-prozent="21"></span>
+    <span data-partei data-name="Arbeiterpartei" data-prozent="22"></span>
+    <span data-partei data-name="Heimatschutzpartei" data-prozent="10"></span>
+  </div>
+
   <!-- Hintergrund-Formen (rein dekorativ) -->
   <div class="blobs" aria-hidden="true">
     <span class="blob b1"></span>
@@ -24,17 +56,30 @@
     <header class="hero">
       <h1 class="title">Koalitionsrechner</h1>
       <p class="lead">
-        Dieser Koalitionsrechner zeigt mögliche Regierungen und Mehrheiten für das Parlament und darauffolgende entscheidungen.
+        Der Koalitionsrechner für Skyadventure, welcher die möglichen Mehrheiten und Koalitionen von Skyadventure-Parlamenten aufzeigt.
       </p>
     </header>
+
+    <!-- ===== WARNUNGEN ZUR KONFIGURATION (werden per JS gefüllt) ===== -->
+    <section class="notices" id="notices" aria-live="polite"></section>
 
     <!-- ===== PARLAMENT ===== -->
     <section class="stage" aria-label="Parlamentsdiagramm">
       <svg id="parliament" viewBox="0 0 640 340" role="img" aria-label="Sitzverteilung im Parlament"></svg>
     </section>
 
-    <!-- ===== PARTEIEN (werden per JS aus script.js erzeugt) ===== -->
+    <!-- ===== PARTEIEN (werden per JS aus der Konfiguration erzeugt) ===== -->
     <section class="parties" id="parties" aria-label="Parteien auswählen"></section>
+
+    <!-- ===== HINWEIS BEI UNVEREINBAREN PARTEIEN ===== -->
+    <div class="alert-wrap" id="conflictBox" aria-live="polite" aria-hidden="true">
+      <div class="alert-inner">
+        <div class="alert">
+          <span class="alert-icon" aria-hidden="true">!</span>
+          <div id="conflictText"></div>
+        </div>
+      </div>
+    </div>
 
     <!-- ===== KOALITIONS-STATUS ===== -->
     <section class="status" aria-live="polite">
@@ -51,19 +96,15 @@
     <!-- ===== TEXTBLÖCKE (frei änderbar) ===== -->
     <section class="info">
       <article>
-        <h2> Pilotenpartei</h2>
-        <p>Wir setzen uns für die Weiterentwicklung und den Ausbau des Luftfahrtbereichs sowie der Logistik über die Luft ein. Position: Mitte-Links .</p>
+        <h2>Pilotenpartei</h2>
+        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
       </article>
       <article>
-        <h2>2 Partei</h2>
+        <h2>Partei 2</h2>
         <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
       </article>
       <article>
-        <h2>3 Partei</h2>
-        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      </article>
-      <article>
-        <h2>4 Partei</h2>
+        <h2>Consectetur elit</h2>
         <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
       </article>
     </section>

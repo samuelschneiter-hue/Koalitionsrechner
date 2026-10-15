@@ -140,7 +140,7 @@ body {
 /* ---------- Parteikarten ---------- */
 .parties {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
   gap: 1rem;
   margin: 1.25rem 0;
 }
@@ -209,6 +209,78 @@ body {
   font-size: 0.9rem;
   opacity: 0.7;
 }
+
+.party-share { display: block; }
+
+/* Partei unter der Sperrklausel: sichtbar, aber ausgegraut */
+.party.is-out {
+  cursor: not-allowed;
+  background: rgba(27, 26, 46, 0.05);
+  border-style: dashed;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.party.is-out:hover,
+.party.is-out:active { transform: none; }
+.party.is-out .dot { background: #b9b8c6; }
+.party.is-out .party-name,
+.party.is-out .party-seats { color: #8f8da3; }
+.party-note {
+  display: block;
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--ink-soft);
+}
+
+/* ---------- Warnungen zur Konfiguration ---------- */
+.notices { display: grid; gap: 0.6rem; margin: 0 0 1.5rem; }
+.notices:empty { display: none; }
+.notice {
+  margin: 0;
+  padding: 0.8rem 1.1rem;
+  border-radius: 16px;
+  background: rgba(255, 183, 3, 0.16);
+  border: 1.5px solid rgba(255, 183, 3, 0.75);
+  font-size: 0.95rem;
+  font-weight: 500;
+  animation: fadeUp 0.6s var(--ease) both;
+}
+
+/* ---------- Hinweis: unvereinbare Parteien ---------- */
+.alert-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  margin: 0;
+  transition: grid-template-rows 0.5s var(--ease), opacity 0.4s var(--ease), margin 0.5s var(--ease);
+}
+.alert-wrap.show { grid-template-rows: 1fr; opacity: 1; margin: 0 0 1rem; }
+.alert-inner { min-height: 0; overflow: hidden; }
+.alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  padding: 1rem 1.25rem;
+  border-radius: 20px;
+  background: rgba(255, 77, 109, 0.12);
+  border: 1.5px solid var(--c1);
+}
+.alert-icon {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 50%;
+  background: var(--c1);
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 800;
+}
+.alert p { margin: 0; }
+.alert p + p { margin-top: 0.4rem; }
 
 /* ---------- Status ---------- */
 .status {
@@ -312,7 +384,8 @@ body {
 /* ---------- Mobil ---------- */
 @media (max-width: 720px) {
   .parties { grid-template-columns: 1fr; }
-  .party { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.2rem; }
+  .party { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.2rem; }
+  .party-note { flex-basis: 100%; margin-top: 0; }
   .party-seats { margin: 0; font-size: 2rem; }
   .party-share { display: none; }
   .info { grid-template-columns: 1fr; gap: 1.5rem; }
