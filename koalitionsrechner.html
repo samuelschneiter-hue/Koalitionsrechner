@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Koalitionsrechner · Skyadventure</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="calculator-page">\n  <nav class="site-nav" aria-label="Hauptnavigation">
+    <a class="nav-brand" href="index.html" aria-label="Skyadventure Homepage">Skyadventure<span>✦</span></a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Übersicht</a>
+      <a href="koalitionsrechner.html" class="nav-link">Koalitionsrechner</a>
+      <a href="build.html" class="nav-link">Andere Server</a>
+    </div>
+  </nav>
+
+
+  <!-- =====================================================================
+       KONFIGURATION  –  hier stellst du alles ein
+       ---------------------------------------------------------------------
+       data-sitze-gesamt  Gesamtzahl der Sitze (Standard: 100)
+       data-sperrklausel  Hürde in Prozent (Standard: 10). Parteien darunter
+                          bekommen 0 Sitze; die Prozente der übrigen Parteien
+                          werden automatisch neu auf 100 % normiert.
+       data-ausschluss    Unvereinbare Parteien. Namen mit Komma trennen.
+                          Mehrere Gruppen mit Strichpunkt (;) trennen.
+                          Beispiel: "Partei A, Partei C; Partei B, Partei D, Partei E"
+                          -> A und C schliessen sich aus. B, D und E
+                             schliessen sich gegenseitig aus.
+                          Die Namen müssen genau den Parteinamen unten entsprechen.
+
+       Pro Partei eine Zeile:
+         data-name     Name der Partei
+         data-prozent  Ergebnis in Prozent (Dezimalstellen mit Punkt: 12.5)
+         data-farbe    (optional) eigene Farbe, z. B. "#ff4d6d"
+         data-sitze    (optional) Sitze von Hand festlegen, überschreibt die Berechnung
+       Weitere Parteien: einfach eine Zeile kopieren.
+       ===================================================================== -->
+  <div id="konfig" hidden
+       data-sitze-gesamt="100"
+       data-sperrklausel="10"
+       data-ausschluss="">
+    <span data-partei data-name="Gründe eine Partei!" data-prozent="10"></span>
+    <span data-partei data-name="Pilotenpartei" data-prozent="29"></span>
+    <span data-partei data-name="Gründe eine Partei!" data-prozent="14"></span>
+    <span data-partei data-name="Gründe eine Partei!" data-prozent="32"></span>
+    <span data-partei data-name="Gründe eine Partei!" data-prozent="2"></span>
+    <span data-partei data-name="Gründe eine Partei!" data-prozent="13"></span>
+  </div>
+
+  <!-- Hintergrund-Formen (rein dekorativ) -->
+  <div class="blobs" aria-hidden="true">
+    <span class="blob b1"></span>
+    <span class="blob b2"></span>
+    <span class="blob b3"></span>
+  </div>
+
+  <main class="page">
+
+    <!-- ===== TITEL & EINLEITUNG (Texte hier frei ändern) ===== -->
+    <header class="hero">
+      <h1 class="title">Koalitionsrechner</h1>
+      <p class="lead">
+        Der Koalitionsrechner für Skyadventure, welcher die möglichen Mehrheiten und Koalitionen von Skyadventure-Parlamenten aufzeigt.
+      </p>
+    </header>
+
+    <!-- ===== WARNUNGEN ZUR KONFIGURATION (werden per JS gefüllt) ===== -->
+    <section class="notices" id="notices" aria-live="polite"></section>
+
+    <!-- ===== PARLAMENT ===== -->
+    <section class="stage" aria-label="Parlamentsdiagramm">
+      <svg id="parliament" viewBox="0 0 640 340" role="img" aria-label="Sitzverteilung im Parlament"></svg>
+    </section>
+
+    <!-- ===== PARTEIEN (werden per JS aus der Konfiguration erzeugt) ===== -->
+    <section class="parties" id="parties" aria-label="Parteien auswählen"></section>
+
+    <!-- ===== HINWEIS BEI UNVEREINBAREN PARTEIEN ===== -->
+    <div class="alert-wrap" id="conflictBox" aria-live="polite" aria-hidden="true">
+      <div class="alert-inner">
+        <div class="alert">
+          <span class="alert-icon" aria-hidden="true">!</span>
+          <div id="conflictText"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== KOALITIONS-STATUS ===== -->
+    <section class="status" aria-live="polite">
+      <div class="meter" aria-hidden="true">
+        <div class="meter-fill" id="meterFill"></div>
+        <div class="meter-mark" id="meterMark"></div>
+      </div>
+      <div class="status-row">
+        <p class="status-text" id="statusText"></p>
+        <button class="reset" id="resetBtn" type="button">Auswahl zurücksetzen</button>
+      </div>
+    </section>
+
+    <!-- ===== TEXTBLÖCKE (frei änderbar) ===== -->
+    <section class="info">
+      <article>
+        <h2>Pilotenpartei</h2>
+        <p>Noch kein Wahlprogramm</p>
+      </article>
+      <article>
+        <h2>Gründe eine Partei!</h2>
+        <p>Noch kein Wahlprogramm</p>
+      </article>
+      <article>
+        <h2>Gründe eine Partei!</h2>
+        <p>Noch kein Wahlprogramm</p>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <p>Tool von Skyadventure by AdventureCraft</p>
+    </footer>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -3,118 +3,165 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Koalitionsrechner</title>
+  <meta name="theme-color" content="#f7f6fb">
+  <title>Skyadventure · Home</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-
-  <!-- =====================================================================
-       KONFIGURATION  –  hier stellst du alles ein
-       ---------------------------------------------------------------------
-       data-sitze-gesamt  Gesamtzahl der Sitze (Standard: 100)
-       data-sperrklausel  Hürde in Prozent (Standard: 10). Parteien darunter
-                          bekommen 0 Sitze; die Prozente der übrigen Parteien
-                          werden automatisch neu auf 100 % normiert.
-       data-ausschluss    Unvereinbare Parteien. Namen mit Komma trennen.
-                          Mehrere Gruppen mit Strichpunkt (;) trennen.
-                          Beispiel: "Partei A, Partei C; Partei B, Partei D, Partei E"
-                          -> A und C schliessen sich aus. B, D und E
-                             schliessen sich gegenseitig aus.
-                          Die Namen müssen genau den Parteinamen unten entsprechen.
-
-       Pro Partei eine Zeile:
-         data-name     Name der Partei
-         data-prozent  Ergebnis in Prozent (Dezimalstellen mit Punkt: 12.5)
-         data-farbe    (optional) eigene Farbe, z. B. "#ff4d6d"
-         data-sitze    (optional) Sitze von Hand festlegen, überschreibt die Berechnung
-       Weitere Parteien: einfach eine Zeile kopieren.
-       ===================================================================== -->
-  <div id="konfig" hidden
-       data-sitze-gesamt="100"
-       data-sperrklausel="10"
-       data-ausschluss="Naturschutzpartei, Heimatschutzpartei; Pilotenpartei, Heimatschutzpartei">
-    <span data-partei data-name="Naturschutzpartei" data-prozent="18"></span>
-    <span data-partei data-name="Pilotenpartei" data-prozent="29"></span>
-    <span data-partei data-name="Wirtschaftspartei" data-prozent="21"></span>
-    <span data-partei data-name="Arbeiterpartei" data-prozent="22"></span>
-    <span data-partei data-name="Heimatschutzpartei" data-prozent="10"></span>
-  </div>
-
-  <!-- Hintergrund-Formen (rein dekorativ) -->
-  <div class="blobs" aria-hidden="true">
-    <span class="blob b1"></span>
-    <span class="blob b2"></span>
-    <span class="blob b3"></span>
-  </div>
-
-  <main class="page">
-
-    <!-- ===== TITEL & EINLEITUNG (Texte hier frei ändern) ===== -->
-    <header class="hero">
-      <h1 class="title">Koalitionsrechner</h1>
-      <p class="lead">
-        Der Koalitionsrechner für Skyadventure, welcher die möglichen Mehrheiten und Koalitionen von Skyadventure-Parlamenten aufzeigt.
-      </p>
-    </header>
-
-    <!-- ===== WARNUNGEN ZUR KONFIGURATION (werden per JS gefüllt) ===== -->
-    <section class="notices" id="notices" aria-live="polite"></section>
-
-    <!-- ===== PARLAMENT ===== -->
-    <section class="stage" aria-label="Parlamentsdiagramm">
-      <svg id="parliament" viewBox="0 0 640 340" role="img" aria-label="Sitzverteilung im Parlament"></svg>
-    </section>
-
-    <!-- ===== PARTEIEN (werden per JS aus der Konfiguration erzeugt) ===== -->
-    <section class="parties" id="parties" aria-label="Parteien auswählen"></section>
-
-    <!-- ===== HINWEIS BEI UNVEREINBAREN PARTEIEN ===== -->
-    <div class="alert-wrap" id="conflictBox" aria-live="polite" aria-hidden="true">
-      <div class="alert-inner">
-        <div class="alert">
-          <span class="alert-icon" aria-hidden="true">!</span>
-          <div id="conflictText"></div>
-        </div>
-      </div>
+<body class="home-page">
+  <nav class="site-nav" aria-label="Hauptnavigation">
+    <a class="nav-brand" href="index.html" aria-label="Skyadventure Homepage">Skyadventure<span>✦</span></a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link active" aria-current="page">Übersicht</a>
+      <a href="koalitionsrechner.html" class="nav-link">Koalitionsrechner</a>
+      <a href="build.html" class="nav-link">Weitere Server</a>
     </div>
+  </nav>
+  <div class="blobs" aria-hidden="true">
+    <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
+  </div>
+  
+  <main class="home-content">
+    <section class="home-hero">
+      <span class="eyebrow"><span class="eyebrow-dot"></span> GEMACHT FÜR ALLE</span>
+      <h1 class="title">Eine Welt ohne<br><span class="title-accent">Begrenzungen</span></h1>
+      <p class="lead">Wir von AdventureCraft haben disen Server erstellt, damit du alle deine Interessen und Talente teilen kannst.</p>
+      <div class="hero-actions">
+        <a class="primary-link" href="koalitionsrechner.html">Koalitionsrechner <span aria-hidden="true">↗</span></a>
+        <a class="text-link" href="#discover">Mehr neues<span aria-hidden="true">↓</span></a>
+     
+<!-- ===== DISCORD CTA ===== -->
+<section class="discord-cta">
+  <div class="discord-copy">
+    <span class="section-kicker">Werde Teil der Community</span>
+    <h2>Gemeinsam Skyadventure erleben.</h2>
+    <p>
+      Tausche dich mit anderen Spielern aus, entdecke neue Projekte
+      und bleibe über Updates und Events informiert.
+    </p>
+  </div>
 
-    <!-- ===== KOALITIONS-STATUS ===== -->
-    <section class="status" aria-live="polite">
-      <div class="meter" aria-hidden="true">
-        <div class="meter-fill" id="meterFill"></div>
-        <div class="meter-mark" id="meterMark"></div>
+  <!-- HIER DEINEN DISCORD-EINLADUNGSLINK EINTRAGEN -->
+  
+<a class="discord-box" href="https://discord.gg/tufzJ5bbZj" target="_blank" rel="noopener noreferrer">
+  <strong>Discord beitreten ↗</strong>
+</a>
+
+</section>
+
       </div>
-      <div class="status-row">
-        <p class="status-text" id="statusText"></p>
-        <button class="reset" id="resetBtn" type="button">Auswahl zurücksetzen</button>
+      <div class="hero-art">
+        <img src="images/flugzeug.png" alt="Berglandschaft im weichen Morgenlicht">
+        <div class="image-caption"><span>01 / Entdecke</span><span>Entdeckungstour mit einem Luftschiff</span></div>
       </div>
     </section>
-
-    <!-- ===== TEXTBLÖCKE (frei änderbar) ===== -->
-    <section class="info">
-      <article>
-        <h2>Pilotenpartei</h2>
-        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    <section class="intro-section" id="discover">
+      <div class="section-kicker">01 — UNSERE WELT</div>
+      <div class="intro-copy">
+        <h2>Freiheit<br>ohne Limit</h2>
+        <p>Die Skyadventure-Welt bietet mit den über 550 Mods ein Universum, dass allen Ideen den passenden Nutzen verpasst. Und das beste: Du kannst alles mit deinen Freunden teilen!</p>
+      </div>
+    </section>
+    <section class="feature-grid" aria-label="Highlights">
+      <article class="feature-card feature-large">
+        <img src="images/landschaft.png" alt="Sternenhimmel über einem Berg">
+        <div class="feature-overlay"><span>Erbaue / 02</span><h3>Mit Create Aeronautics</h3><p>Mit Zahlreichen Luftfahrt-Mods kann alles erdenkliche Fliegen...nur zum Teil nicht Landen</p></div>
       </article>
-      <article>
-        <h2>Partei 2</h2>
-        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+      <article class="feature-card feature-small">
+        <img src="images/projekt.png" alt="Elektronik und technische Komponenten">
+        <div class="feature-overlay"><span>Optimiere / 03</span><h3>Zahlreiche Quests</h3><p>Verbessere Logistik-Ketten, Fabriken oder baue ein Autopilot für...alles!</p></div>
       </article>
-      <article>
-        <h2>Consectetur elit</h2>
-        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <article class="feature-card feature-small">
+        <img src="images/arbeitsraum.png" alt="Heller, moderner Arbeitsraum">
+        <div class="feature-overlay"><span>Geniesse / 04</span><h3>Fliegende Inseln</h3><p>Die fliegenden Inseln sind nicht nur ein wunderschöner Anblick, sondern auch eine Herausforderung, die es zu Meistern gibt!</p></div>
       </article>
     </section>
+    <section class="home-quote">
+      <span class="section-kicker">02 — Die Mods</span>
+      <p>Viele Mods, nicht kompliziert, einfach<span> Entspannt</span></p>
+      <div>Die Welt ist perfekt. Aber noch nicht optimiert.</div>
+      <article class="feature-card feature-small">
+        <img src="images/Spieler.png" alt="Heller, moderner Arbeitsraum">
+        <div class="feature-overlay"><span>Schaffe Erinnerungen / 05</span><h3>Survival, aber besser</h3><p></p></div>
+      </article>
+    </section>
+    
+<!-- ===== VIER WEITERE SKYADVENTURE-SEKTIONEN ===== -->
+<section class="showcase-section" id="weitere-highlights">
 
-    <footer class="footer">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    </footer>
+  <div class="showcase-heading">
+    <span class="section-kicker">✦ UNSERE MODS</span>
+    <h2>Deine Welt. Deine Projekte. <span> Deine Abenteuer.</span></h2>
+    <p>Entdecke die Mods unserer Welt und erfahre, was Skyadventure besonders macht.</p>
+  </div>
 
+  <div class="showcase-grid">
+
+    <!-- OBEN LINKS -->
+    <article class="showcase-card">
+      <div class="showcase-image">
+        <img src="images/bild1.png" alt="Bildplatz 1" loading="lazy">
+        <span class="showcase-number">01</span>
+      </div>
+      <div class="showcase-content">
+        <h3>Create Aeronautics</h3>
+        <p>
+          Create Aeronautics ermöglicht es, Luftfahrzeuge zu bauen, welche mit Auftrieb, Luftdruck, Heissluft und vielen weiteren Physikalischen Gesetzen gebaut werden können.
+        </p>
+        <span class="showcase-tag tag-violet">KREATIVITÄT</span>
+      </div>
+    </article>
+
+    <!-- OBEN RECHTS -->
+    <article class="showcase-card">
+      <div class="showcase-image">
+        <img src="images/bild2.png" alt="Bildplatz 2" loading="lazy">
+        <span class="showcase-number">02</span>
+      </div>
+      <div class="showcase-content">
+        <h3>Eternal Starlight</h3>
+        <p>
+          Mit Eternal Starlight kannst du neue Dimensionen entdecken. Aber sei vorsichtig, du weisst nicht was wo lauern kann...
+        </p>
+        <span class="showcase-tag tag-pink">ENTDECKUNG</span>
+      </div>
+    </article>
+
+    <!-- UNTEN LINKS -->
+    <article class="showcase-card">
+      <div class="showcase-image">
+        <img src="images/bild3.png" alt="Bildplatz 3" loading="lazy">
+        <span class="showcase-number">03</span>
+      </div>
+      <div class="showcase-content">
+        <h3>Ars Nouveau</h3>
+        <p>
+          Die Zaubermod Ars Nouveau bringt sehr praktikable wege, seine Freunde reinzulegen, oder sich selber oder andere zu schrumpfen. Du kannst sogar deine eigenen Zaubersprüche zusammenbauen!   </p>
+          <span class="showcase-tag tag-blue">COMMUNITY</span>
+      </div>
+    </article>
+
+    <!-- UNTEN RECHTS -->
+    <article class="showcase-card">
+      <div class="showcase-image">
+        <img src="images/bild4.png" alt="Bildplatz 4" loading="lazy">
+        <span class="showcase-number">04</span>
+      </div>
+      <div class="showcase-content">
+        <h3>Paraglider + Waystones</h3>
+        <p>
+          Fliege von Insel zu Insel mit einem Ausdauersystem mit Paraglider, aber pass auf dass du nicht runterfällst, und teleportiere dich schnell zwischen Wegpunkten wenn nötig!
+        </p>
+        <span class="showcase-tag tag-mint">REISEN</span>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+    <footer class="home-footer"><a class="nav-brand" href="index.html">Skyadventure<span>✦</span></a><span>© ADVENTURECRAFT · <em>Server für alle</em></span></footer>
   </main>
-
-  <script src="script.js"></script>
 </body>
 </html>
